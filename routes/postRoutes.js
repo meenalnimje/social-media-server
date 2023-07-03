@@ -1,0 +1,10 @@
+const router = require("express").Router();
+const postController = require("../controllers/postController");
+const requireUser = require("../middlewares/requireUser");
+router.post("/", requireUser, postController.createPost);
+router.post("/bookmark", requireUser, postController.bookmarkPost);
+router.get("/bookmarkpost", requireUser, postController.getBookmarkPost);
+router.post("/like", requireUser, postController.likeAndUnlike);
+router.put("/", requireUser, postController.updatePost);
+router.delete("/", requireUser, postController.deletePost);
+module.exports = router;
