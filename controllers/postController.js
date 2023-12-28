@@ -10,18 +10,18 @@ const createPost = async (req, res) => {
     if (!caption) {
       return res.send(error(400, "caption and post image is required"));
     }
-    // const cloudImg = await cloudinary.uploader.upload(postImg, {
-    //   folder: "postImg",
-    // });
+    const cloudImg = await cloudinary.uploader.upload(postImg, {
+      folder: "postImg",
+    });
     const ownerId = req._id;
     const user = await User.findById(req._id);
     const post = await Post.create({
       owner: ownerId,
       caption,
-      // image: {
-      //   publicId: cloudImg.public_id,
-      //   url: cloudImg.secure_url,
-      // },
+      image: {
+        publicId: cloudImg.public_id,
+        url: cloudImg.secure_url,
+      },
     });
     user.posts.push(post._id);
     // here we used save() becz we updated the user model
@@ -108,7 +108,8 @@ const bookmarkPost = async (req, res) => {
       user.bookmarks.push(postId);
     }
     await user.save();
-    return res.send(success(200, "post bookmarked"));
+    const bookmarkPostArr = user.bookmarks.reverse();
+    return res.send(success(200, { bookmarkPostArr }));
   } catch (e) {
     console.log("this error is from bookmark the post side ", e);
     return res.send(error(500, e.message));

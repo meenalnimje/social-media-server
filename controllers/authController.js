@@ -7,7 +7,7 @@ const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      res.send(error(400, "Plz enter Email id/Password "));
+      res.send(error(400, "Plz enter Email /Password "));
     }
     const oldUser = await User.findOne({ email });
     if (oldUser) {
@@ -57,7 +57,6 @@ const refreshAccessToken = async (req, res) => {
     return res.send(error(401, "Refresh token in cookie is required"));
   }
   const refreshToken = cookies.jwt;
-  console.log("refresh token", refreshToken);
   try {
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_KEY);
     const _id = decoded._id;
@@ -79,6 +78,32 @@ const logout = async (req, res) => {
     return res.send(error(500, e.message));
   }
 };
+// const forgotPassword = async (req, res) => {
+//   const { email } = req.body;
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.send(error(404, "Email could not be sent"));
+//     }
+//     const resetToken = generateResetPasswordToken();
+//     user.resetPasswordToken = crypto
+//       .createHash("sha256")
+//       .update(resetToken)
+//       .digest("hex");
+//     user.resetPasswordExpired = Date.now() + 10 * (60 * 1000);
+//     await user.save();
+//     const resetURL = `http://localhost:3000/passwordreset/${resetToken}`;
+//     const message = `
+//     <h1> you have requested for a password reset</h1>
+//     <p>please go to this link to reset your password</p>
+//     <a href=${resetURL} clicktracking=off>${resetURL}</a>
+//     `;
+//     try {
+
+//     } catch (e) {}
+//   } catch (e) {}
+// };
+// const resetPassword = (req, res) => {};
 const generateAccessToken = (data) => {
   try {
     const token = jwt.sign(data, process.env.ACCESS_KEY, {
@@ -103,6 +128,16 @@ const generateRefreshToken = (data) => {
     );
   }
 };
+// const generateResetPasswordToken = () => {
+//   const resetToken = crypto.randomBytes(20).toString("hex");
+//   // const user = await User.findById(_id);
+//   // user.resetPasswordToken = crypto
+//   //   .createHash("sha256")
+//   //   .update(resetToken)
+//   //   .digest("hex");
+//   // await user.save();
+//   return resetToken;
+// };
 module.exports = {
   signup,
   login,
