@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const storiesSchema = mongoose.Schema(
   {
     owner: {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const reelsSchema = mongoose.Schema(
   {
     owner: {
@@ -18,4 +19,5 @@ const reelsSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
 module.exports = mongoose.model("reels", reelsSchema);

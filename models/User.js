@@ -24,8 +24,6 @@ const userSchema = mongoose.Schema(
       // url will be used to show image on page
       url: String,
     },
-    resetPasswordToken: String,
-    resetPasswordExpired: Date,
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +42,14 @@ const userSchema = mongoose.Schema(
         ref: "post",
       },
     ],
+    storiesId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "stories",
+    },
+    reelId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "reels",
+    },
   },
   {
     timestamps: true,

@@ -5,6 +5,9 @@ const dbConnect = require("./dbConnect");
 const authRouter = require("./routes/authRoutes");
 const postRouter = require("./routes/postRoutes");
 const userRouter = require("./routes/userRoutes");
+const storyRouter = require("./routes/storyRoutes");
+const reelsRouter = require("./routes/reelsRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary").v2;
 const cors = require("cors");
@@ -28,6 +31,9 @@ app.use(
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/user", userRouter);
+app.use("/stories", storyRouter);
+app.use("/reels", reelsRouter);
+app.use("/comment", commentRoutes);
 const PORT = process.env.PORT || 4001;
 dbConnect();
 app.listen(PORT, () => {

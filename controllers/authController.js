@@ -7,11 +7,11 @@ const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      res.send(error(400, "Plz enter Email /Password "));
+      return res.send(error(400, "Plz enter Email /Password "));
     }
     const oldUser = await User.findOne({ email });
     if (oldUser) {
-      res.send(error(409, "User already exits"));
+      return res.send(error(409, "User already exits"));
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await User.create({

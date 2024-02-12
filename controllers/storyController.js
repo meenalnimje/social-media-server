@@ -1,6 +1,6 @@
 const Stories = require("../models/Stories");
 const User = require("../models/User");
-const { success, error } = require("../utils/responseWrapper");
+const { success, error } = require("../utilies/responseWrapper");
 const cloudinary = require("cloudinary").v2;
 
 const uploadStories = async (req, res) => {
